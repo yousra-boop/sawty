@@ -1,0 +1,54 @@
+/* --- Reset & Base --- */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background-color: #f9fafb; color: #1f2937; line-height: 1.6; }
+
+/* --- Header & Logo --- */
+header { display: flex; justify-content: space-between; padding: 20px 50px; align-items: center; background: white; }
+.logo-container { display: flex; align-items: center; gap: 10px; }
+.logo-img { width: 40px; height: auto; }
+.logo-text { font-weight: 900; font-size: 1.5rem; color: #4c1d95; }
+
+/* --- Layout Général --- */
+.signup-layout { 
+    display: flex; 
+    padding: 50px 100px; 
+    gap: 80px; 
+    align-items: flex-start; 
+}
+
+.signup-form-side, .signup-info-side { flex: 1; }
+
+/* --- Formulaire --- */
+.signup-form-side h2 { margin-bottom: 25px; font-size: 2rem; }
+.form-row { display: flex; gap: 20px; }
+.form-group { flex: 1; }
+label { display: block; font-weight: bold; margin-top: 15px; font-size: 0.9rem; }
+input { 
+    width: 100%; 
+    padding: 12px; 
+    margin-top: 5px; 
+    border: 1px solid #d1d5db; 
+    border-radius: 8px; 
+    background: #fff; 
+}
+.btn-submit { 
+    width: 100%; 
+    padding: 15px; 
+    background-color: #4c1d95; 
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    margin-top: 30px; 
+    font-weight: bold; 
+    cursor: pointer; 
+}
+
+/* --- Partie Droite (Engagements) --- */
+.logo-large { font-size: 3rem; font-weight: 900; color: #4c1d95; margin-bottom: 20px; }
+.signup-info-side h3 { font-size: 1.5rem; margin-top: 20px; margin-bottom: 15px; }
+.pledge-list { list-style: none; margin-top: 20px; }
+.pledge-list li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+.pledge-list li::before { content: "●"; color: #4c1d95; position: absolute; left: 0; }
+
+/* --- Footer --- */
+footer { text-align: center; padding: 40px; color: #6b7280; font-size: 0.8rem; }

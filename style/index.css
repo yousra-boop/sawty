@@ -1,0 +1,78 @@
+/* Reset simple */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+
+body { background-color: #f9fafb; color: #1f2937; }
+
+/* Header */
+header { display: flex; justify-content: space-between; padding: 20px 50px; align-items: center; }
+.logo { font-weight: 900; font-size: 1.5rem; color: #4c1d95; }
+
+/* Conteneur principal */
+.container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 50px 100px; 
+    gap: 50px; 
+}
+
+/* Texte Intro */
+.intro { flex: 1; }
+.intro h1 { font-size: 3rem; line-height: 1.2; margin-bottom: 20px; }
+.intro h1 span { color: #4c1d95; } /* Couleur violette pour le mot clé */
+
+/* Formulaire */
+.login-box { 
+    flex: 0 0 350px; 
+    background: white; 
+    padding: 40px; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
+
+.login-box h2 { margin-bottom: 5px; }
+
+form { margin-top: 20px; }
+label { display: block; font-size: 0.9rem; font-weight: bold; margin-bottom: 5px; margin-top: 15px; }
+input { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    background: #eff6ff; /* Bleu très léger comme sur ton image */
+}
+
+button { 
+    width: 100%; 
+    padding: 15px; 
+    background-color: #4c1d95; 
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    margin-top: 25px; 
+    font-weight: bold; 
+    cursor: pointer; 
+}
+
+.signup-link { margin-top: 20px; font-size: 0.9rem; text-align: center; }
+.signup-link a { color: #059669; font-weight: bold; text-decoration: none; }
+/* Ajustements pour l'intro */
+.intro { flex: 1; }
+
+.main-desc { margin-bottom: 25px; line-height: 1.6; }
+
+hr { border: 0; border-top: 1px solid #d1d5db; margin: 20px 0; }
+
+/* Bloc d'info simple */
+.info-block { margin-bottom: 15px; }
+
+.info-block h3 { 
+    font-size: 1.2rem; 
+    color: #111827; 
+    margin-bottom: 2px; 
+}
+
+.info-block p { 
+    font-size: 1rem; 
+    color: #374151; 
+}

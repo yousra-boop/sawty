@@ -1,0 +1,44 @@
+/* dashboard.css */
+.sidebar-box {
+    background: white;
+    border: 1px solid #f3f4f6;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.badge-active {
+    background-color: #dcfce7;
+    color: #059669;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.badge-closed {
+    background-color: #fee2e2;
+    color: #dc2626;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.btn-voter {
+    background-color: #4c1d95;
+    transition: background 0.2s;
+}
+
+.btn-voter:hover {
+    background-color: #3730a3;
+}
+
+.btn-postuler {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.btn-postuler:hover {
+    background-color: #e5e7eb;
+}

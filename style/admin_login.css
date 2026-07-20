@@ -1,0 +1,63 @@
+.admin-body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e1b4b; /* Deep Indigo background */
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.login-container {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+    color: #1e1b4b;
+    margin-bottom: 8px;
+}
+
+.login-container p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 24px;
+}
+
+.form-group { margin-bottom: 20px; }
+
+.form-group label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
+}
+
+.submit-btn {
+    width: 100%;
+    background: #1e1b4b;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn:hover { background: #312e81; }
+.logo { font-weight: 900; font-size: 1.5rem; color: #4c1d95; }

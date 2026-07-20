@@ -1,0 +1,38 @@
+/* --- Admin Approval Table Styles --- */
+.cand-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #f3f4f6;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cand-info h4 { color: #1f2937; font-size: 1.1rem; }
+.cand-info p { color: #6b7280; font-size: 0.9rem; margin-top: 4px; }
+
+.actions { display: flex; gap: 10px; }
+
+.btn-approve {
+    background: #10b981;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-reject {
+    background: #ef4444;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
