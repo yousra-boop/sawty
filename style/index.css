@@ -76,3 +76,23 @@ hr { border: 0; border-top: 1px solid #d1d5db; margin: 20px 0; }
     font-size: 1rem; 
     color: #374151; 
 }
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.85rem;
+    color: #6b7280;
+    width: 100%;
+}
+
+footer a {
+    color: #4c1d95;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

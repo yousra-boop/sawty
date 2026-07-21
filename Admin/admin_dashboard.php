@@ -70,6 +70,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $msg_error = "Erreur lors de la suppression.";
         }
     }
+    // D. TOGGLE VOTE STATUS (Open / Close)
+    if (isset($_POST['action']) && $_POST['action'] === 'toggle_status') {
+        $id_election = intval($_POST['id_election']);
+        $current_status = $_POST['current_status'];
+        
+        // Flip the status: if it's active, close it. Otherwise, make it active.
+        $new_status = ($current_status === 'active') ? 'closed' : 'active';
+        
+        // If opening the votes, we can also dynamically set the start_date to NOW if it was pending
+        $stmt = $pdo->prepare("UPDATE Elections SET status = :status WHERE id_election = :id");
+        if ($stmt->execute(['status' => $new_status, 'id' => $id_election])) {
+            $msg_success = "Le statut de l'élection a été mis à jour avec succès ($new_status) !";
+        } else {
+            $msg_error = "Erreur lors de la modification du statut.";
+        }
+    }
 }
 
 // 3. Fetch current active elections to populate the dynamic table
@@ -118,7 +134,7 @@ $elections = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Main Workspace -->
     <main class="max-w-7xl mx-auto p-8 grid grid-cols-12 gap-8">
         
-        <!-- Left Column: Elegant Navigation Sidebar -->
+   <!-- Left Column: Elegant Navigation Sidebar -->
         <aside class="col-span-3">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-8">
                 <h3 class="font-bold text-gray-400 text-[10px] uppercase tracking-wider mb-4">Panneau de Gestion</h3>
@@ -128,13 +144,19 @@ $elections = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <span>Élections</span>
                     </a>
 
-                    <!-- Inside the aside navigation -->
-<a href="pending_candidates.php" class="flex items-center space-x-3 text-gray-600 hover:bg-gray-50 font-bold px-4 py-3 rounded-xl transition">
-    <span>Candidatures</span>
-</a>
-                    <a href="#" class="flex items-center space-x-3 text-gray-600 hover:bg-gray-50 font-bold px-4 py-3 rounded-xl transition">
+                    <a href="pending_candidates.php" class="flex items-center space-x-3 text-gray-600 hover:bg-gray-50 font-bold px-4 py-3 rounded-xl transition">
                         <span class="w-2 h-2 rounded-full bg-transparent"></span>
-                        <span>Utilisateurs</span>
+                        <span>Candidatures</span>
+                    </a>
+
+                    <a href="logs.php" class="flex items-center space-x-3 text-gray-600 hover:bg-gray-50 font-bold px-4 py-3 rounded-xl transition">
+                        <span class="w-2 h-2 rounded-full bg-transparent"></span>
+                        <span>Journal des Logs</span>
+                    </a>
+
+                    <a href="listes_blanches.php" class="flex items-center space-x-3 text-gray-600 hover:bg-gray-50 font-bold px-4 py-3 rounded-xl transition">
+                        <span class="w-2 h-2 rounded-full bg-transparent"></span>
+                        <span>Listes Blanches</span>
                     </a>
                 </nav>
             </div>
@@ -162,15 +184,16 @@ $elections = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <h2 class="text-lg font-bold text-sawty-purple">Gestion des Élections</h2>
                         <p class="text-xs text-gray-400 mt-0.5">Ajoutez, modifiez ou clôturez les sessions électorales en temps réel.</p>
                     </div>
-                    <button onclick="toggleModal('add-modal')" class="bg-sawty-green hover:bg-sawty-greenHover text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1">
-                        <span>+</span> <span>Nouvelle Élection</span>
-                    </button>
+                        <a href="nvl_election.php" class="bg-sawty-green text-white px-4 py-2 rounded-xl text-xs font-bold hover:opacity-90 transition shadow-sm">
+                            + Ajouter une élection
+                        </a>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="text-gray-400 text-[10px] uppercase tracking-wider border-b border-gray-100">
+                                <th class="pb-4 font-bold">Affiche</th> <!-- ADDED HERE -->
                                 <th class="pb-4 font-bold">Titre de l'élection</th>
                                 <th class="pb-4 font-bold">Date de Début</th>
                                 <th class="pb-4 font-bold">Date de Fin</th>
@@ -184,22 +207,60 @@ $elections = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </tr>
                             <?php else: foreach ($elections as $elec): ?>
                                 <tr class="text-sm hover:bg-gray-50/50 transition">
-                                    <td class="py-4 font-bold text-gray-900"><?php echo htmlspecialchars($elec['e_title']); ?></td>
-                                    <td class="py-4 text-xs text-gray-500 font-mono"><?php echo $elec['start_date']; ?></td>
-                                    <td class="py-4 text-xs text-gray-500 font-mono"><?php echo $elec['end_date']; ?></td>
-                                    <td class="py-4 text-right space-x-3 font-semibold text-xs">
-                                        <button 
-                                            onclick="openEditModal(<?php echo $elec['id_election']; ?>, '<?php echo htmlspecialchars(addslashes($elec['e_title'])); ?>', '<?php echo $elec['start_date']; ?>', '<?php echo $elec['end_date']; ?>')" 
-                                            class="text-sawty-purple hover:text-sawty-purpleHover transition">
-                                            Modifier
-                                        </button>
-                                        <form action="" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer définitivement cette élection ?');">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="id_election" value="<?php echo $elec['id_election']; ?>">
-                                            <button type="submit" class="text-rose-600 hover:text-rose-800 transition">Supprimer</button>
-                                        </form>
-                                    </td>
-                                </tr>
+    <!-- Poster Thumbnail -->
+    <td class="py-4">
+        <?php if (!empty($elec['poster'])): ?>
+            <img src="../uploads/<?php echo htmlspecialchars($elec['poster']); ?>" alt="Poster" class="w-10 h-10 object-cover rounded-lg shadow-sm border border-gray-100">
+        <?php else: ?>
+            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-[10px] text-gray-400 font-bold">N/A</div>
+        <?php endif; ?>
+    </td>
+    
+    <!-- Title & Status Badge -->
+    <td class="py-4">
+        <div class="font-bold text-gray-900"><?php echo htmlspecialchars($elec['e_title']); ?></div>
+        <div class="mt-1">
+            <?php if ($elec['status'] === 'active'): ?>
+                <span class="bg-emerald-50 text-emerald-600 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">● Ouvert (Active)</span>
+            <?php elseif ($elec['status'] === 'closed'): ?>
+                <span class="bg-rose-50 text-rose-600 border border-rose-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">■ Fermé (Closed)</span>
+            <?php else: ?>
+                <span class="bg-amber-50 text-amber-600 border border-amber-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">⏳ En attente (Pending)</span>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <td class="py-4 text-xs text-gray-500 font-mono"><?php echo $elec['start_date']; ?></td>
+    <td class="py-4 text-xs text-gray-500 font-mono"><?php echo $elec['end_date']; ?></td>
+    
+    <!-- Control Actions -->
+    <td class="py-4 text-right space-x-3 font-semibold text-xs">
+        <!-- Toggle Open/Close Button -->
+        <form action="" method="POST" class="inline">
+            <input type="hidden" name="action" value="toggle_status">
+            <input type="hidden" name="id_election" value="<?php echo $elec['id_election']; ?>">
+            <input type="hidden" name="current_status" value="<?php echo $elec['status']; ?>">
+            
+            <?php if ($elec['status'] === 'active'): ?>
+                <button type="submit" class="text-amber-600 hover:text-amber-800 transition font-bold">Fermer les votes</button>
+            <?php else: ?>
+                <button type="submit" class="text-emerald-600 hover:text-emerald-800 transition font-bold">Ouvrir les votes</button>
+            <?php endif; ?>
+        </form>
+
+        <!-- Edit Button -->
+        <a href="nvl_election.php?id=<?php echo $elec['id_election']; ?>" class="text-sawty-purple hover:text-sawty-purpleHover transition">
+            Modifier
+        </a>
+
+        <!-- Delete Button -->
+        <form action="" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer définitivement cette élection ?');">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="id_election" value="<?php echo $elec['id_election']; ?>">
+            <button type="submit" class="text-rose-600 hover:text-rose-800 transition">Supprimer</button>
+        </form>
+    </td>
+</tr>
                             <?php endforeach; endif; ?>
                         </tbody>
                     </table>
