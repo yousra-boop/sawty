@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $stmt->execute();
         // Redirection vers l'accueil si tout s'est bien passé
-        header("Location: dashboard.php");
+        header("Location: ../dashboard.php");
         exit();
     } catch (PDOException $e) {
         // Affiche l'erreur si l'email existe déjà ou autre problème de base de données

@@ -63,8 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['identifiant'])) {
             <!-- Success Notification after Submitting -->
             <?php if ($just_submitted): ?>
                 <div class="bg-purple-50 border border-purple-200 text-purple-900 px-4 py-3 rounded-xl text-xs font-semibold mb-6">
-                    🎉 Thank you for your interest! Your application has been successfully submitted and is currently being reviewed by the administration.
-                </div>
+🎉 Merci pour votre intérêt ! Votre candidature a été soumise avec succès et est actuellement en cours d'examen par l'administration.                </div>
             <?php endif; ?>
 
             <!-- Error Notification -->

@@ -126,7 +126,7 @@ $elections = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <nav class="flex items-center space-x-4 text-sm font-bold">
                 <span class="text-gray-500 font-normal">Session Administrateur Active</span>
-                <a href="deconnexion.php" class="text-red-600 hover:text-red-800 transition">Sign Out</a>
+                <a href="../index.php" class="text-red-600 hover:text-red-800 transition">Sign Out</a>
             </nav>
         </div>
     </header>

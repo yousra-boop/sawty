@@ -76,7 +76,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="w-full bg-justiceGreen hover:bg-opacity-95 text-white font-bold py-3 px-4 rounded-xl transition shadow-md mt-2">
+                    <button type="submit" href="../index.php" class="w-full bg-justiceGreen hover:bg-opacity-95 text-white font-bold py-3 px-4 rounded-xl transition shadow-md mt-2">
                         S'inscrire
                     </button>
                 </form>
