@@ -70,7 +70,7 @@ if (!$candidacy) {
             </div>
             <nav class="space-x-6 text-xs sm:text-sm font-bold flex items-center">
                 <a href="dashboard.php" class="text-gray-600 hover:text-royalPurple transition">&larr; Retour au Tableau de Bord</a>
-                <a href="deconnexion.php" class="text-red-600 hover:text-red-700 transition">Sign Out</a>
+                <a href="index.php" class="text-red-600 hover:text-red-700 transition">Sign Out</a>
             </nav>
         </div>
     </header>

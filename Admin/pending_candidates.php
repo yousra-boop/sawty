@@ -2,8 +2,8 @@
 session_start();
 require_once("../auth/connexion.php");
 
-// Guard Clause: Ensure admin is logged in
-if (!isset($_SESSION['user_name']) && !isset($_SESSION['admin_name'])) {
+// Guard Clause: Ensure admin is logged in using the correct session key
+if (!isset($_SESSION['admin_id'])) {
     header("Location: ../index.php");
     exit();
 }
@@ -85,10 +85,10 @@ $latest_pending_candidate = $stmt->fetch(PDO::FETCH_ASSOC);
                         <?php if (!empty($latest_pending_candidate['user_avatar'])): ?>
                             <img src="../<?php echo htmlspecialchars($latest_pending_candidate['user_avatar']); ?>" alt="Avatar" class="w-14 h-14 object-cover rounded-full border border-gray-200 shadow-sm">
                         <?php else: ?>
-                            <div class="w-14 h-14 bg-purple-100 text-royalPurple rounded-full flex items-center justify-center font-bold text-base">
-                                <?php echo strtoupper(substr($latest_pending_candidate['user_name'], 0, 1)); ?>
-                            </div>
-                        <?php endif; ?>
+    <div class="w-14 h-14 bg-purple-100 text-royalPurple rounded-full flex items-center justify-center font-bold text-base">
+        <?php echo strtoupper(substr($latest_pending_candidate['user_name'], 0, 1)); ?>
+    </div>
+<?php endif; ?>
                         <div>
                             <h2 class="text-lg font-black text-gray-900"><?php echo htmlspecialchars($latest_pending_candidate['user_name'] . ' ' . $latest_pending_candidate['user_surname']); ?></h2>
                             <p class="text-xs text-gray-400"><?php echo htmlspecialchars($latest_pending_candidate['user_email']); ?></p>
@@ -120,16 +120,22 @@ $latest_pending_candidate = $stmt->fetch(PDO::FETCH_ASSOC);
                             <h4 class="font-bold text-royalPurple uppercase tracking-wider text-[11px]">Médias Soumis</h4>
                             
                             <!-- Photo -->
-                            <div>
-                                <p class="text-[11px] text-gray-500 mb-1">Photo officielle :</p>
-                                <?php if (!empty($latest_pending_candidate['c_photo'])): ?>
-                                    <a href="../<?php echo htmlspecialchars($latest_pending_candidate['c_photo']); ?>" target="_blank">
-                                        <img src="../<?php echo htmlspecialchars($latest_pending_candidate['c_photo']); ?>" alt="Photo de campagne" class="w-full h-32 object-cover rounded-xl border border-gray-200 shadow-sm hover:scale-[1.02] transition">
-                                    </a>
-                                <?php else: ?>
-                                    <p class="text-[11px] text-gray-400 italic">Aucune photo fournie</p>
-                                <?php endif; ?>
-                            </div>
+                           <!-- Photo -->
+<div>
+    <p class="text-[11px] text-gray-500 mb-1">Photo officielle :</p>
+    <?php if (!empty($latest_pending_candidate['c_photo'])): ?>
+        <?php 
+            // Normalize path to prevent double '../' issues
+            $photoPath = $latest_pending_candidate['c_photo'];
+            $finalPhoto = (strpos($photoPath, '../') === 0) ? $photoPath : '../' . ltrim($photoPath, '/');
+        ?>
+        <a href="<?php echo htmlspecialchars($finalPhoto); ?>" target="_blank">
+            <img src="<?php echo htmlspecialchars($finalPhoto); ?>" alt="Photo de campagne" class="w-full h-32 object-cover rounded-xl border border-gray-200 shadow-sm hover:scale-[1.02] transition">
+        </a>
+    <?php else: ?>
+        <p class="text-[11px] text-gray-400 italic">Aucune photo fournie</p>
+    <?php endif; ?>
+</div>
 
                             <!-- Video -->
                             <?php if (!empty($latest_pending_candidate['c_video'])): ?>
